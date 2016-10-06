@@ -1,25 +1,20 @@
-require 'http'
+require_relative 'fb_api'
 
 module FaceGroup
   # Single posting on group's feed
   class Posting
     attr_reader :message, :updated_at, :id, :attachment
 
-    def initialize(access_token, id, message, updated_at)
+    def initialize(fb_api, id:, message:, updated_at:)
+      @fb_api = fb_api
       @id = id
       @message = message
       @updated_at = updated_at
-      @access_token = access_token
     end
 
     def attachment
       return @attachment if @attachment
-
-      attachments_response = HTTP.get(
-        "https://graph.facebook.com/v2.7/#{@id}/attachments",
-        params: { access_token: access_token })
-      attachments = JSON.load(attachments_response.to_s)
-      attached_data = attachments['data'].first
+      attached_data = @fb_api.posting_attachments(@id)
       @attachment = {
         description: attached_data['description'],
         url: attached_data['url']
