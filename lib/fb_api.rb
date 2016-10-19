@@ -8,8 +8,13 @@ module FaceGroup
     FB_API_URL = URI.join(FB_URL, "#{API_VER}/")
     FB_TOKEN_URL = URI.join(FB_API_URL, 'oauth/access_token')
 
-    def initialize(client_id:, client_secret:)
-      access_token_response = HTTP.get(
+    attr_accessor :access_token
+
+    def initialize(client_id: nil, client_secret: nil, access_token: nil)
+      if access_token
+        @access_token = access_token
+      else
+        access_token_response = HTTP.get(
         FB_TOKEN_URL,
         params: {
           client_id: client_id,
@@ -17,6 +22,7 @@ module FaceGroup
           grant_type: 'client_credentials'
         })
       @access_token = JSON.load(access_token_response.to_s)['access_token']
+      end
     end
 
     def group_info(group_id)
@@ -31,6 +37,15 @@ module FaceGroup
         fb_resource_url(group_id).to_s + '/feed',
         params: { access_token: @access_token })
       JSON.load(feed_response.to_s)['data']
+    end
+
+    def posting(posting_id)
+      feed_response = HTTP.get(
+        fb_resource_url(posting_id).to_s,
+        params: { access_token: @access_token }
+        )
+      
+      JSON.load(feed_response.to_s)
     end
 
     def posting_attachments(posting_id)
