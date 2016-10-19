@@ -1,11 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/rg'
-require 'yaml'
-require './lib/group.rb'
-
-CREDENTIALS = YAML.load(File.read('config/credentials.yml'))
-FB_RESPONSE = YAML.load(File.read('spec/fixtures/fb_response.yml'))
-RESULTS = YAML.load(File.read('spec/fixtures/results.yml'))
+require_relative 'spec_helper.rb'
 
 describe 'FaceGroup specifications' do
   before do
@@ -13,6 +6,8 @@ describe 'FaceGroup specifications' do
       client_id: CREDENTIALS[:client_id],
       client_secret: CREDENTIALS[:client_secret]
       )
+
+    @posting_with_msg_id = FB_RESULT[:posting_with_msg_id].first
   end
 
   it 'should be able to open a Facebook Group' do
@@ -34,15 +29,15 @@ describe 'FaceGroup specifications' do
     group = FaceGroup::Group.new(
       @fb_api,
       group_id: CREDENTIALS[:group_id])
-    posting = group.feed.first
-    posting.message.length.must_be :>, 0
+    posting_with_msg = group.feed.find { |p| p.id == posting_with_msg_id }
+    posting_with_msg.message.length.must_be :>, 0
   end
 
   it 'should find attachments in postings' do
     group = FaceGroup::Group.new(
       @fb_api,
       group_id: CREDENTIALS[:group_id])
-    posting = group.feed.first
-    posting.attachment[:description].length.must_be :>, 0
+    posting_with_msg = group.feed.find { |p| p.id == @posting_with_msg_id }
+    posting_with_msg.attachment[:description].length.must_be :>, 0
   end
 end

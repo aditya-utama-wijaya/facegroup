@@ -4,7 +4,7 @@ module FaceGroup
   # Service for all FB API calls
   class FbApi
     FB_URL = 'https://graph.facebook.com'
-    API_VER = 'v2.7'
+    API_VER = 'v2.8'
     FB_API_URL = URI.join(FB_URL, "#{API_VER}/")
     FB_TOKEN_URL = URI.join(FB_API_URL, 'oauth/access_token')
 
@@ -28,14 +28,14 @@ module FaceGroup
 
     def group_feed(group_id)
       feed_response = HTTP.get(
-        URI.join(fb_resource_url(group_id), 'feed'),
+        fb_resource_url(group_id).to_s + '/feed',
         params: { access_token: @access_token })
       JSON.load(feed_response.to_s)['data']
     end
 
     def posting_attachments(posting_id)
       attachments_response = HTTP.get(
-        URI.join(fb_resource_url(posting_id), 'attachments'),
+        fb_resource_url(posting_id).to_s + '/attachments',
         params: { access_token: @access_token })
       JSON.load(attachments_response.to_s)['data'].first
     end
@@ -43,7 +43,7 @@ module FaceGroup
     private
 
     def fb_resource_url(id)
-      URI.join(FB_API_URL, "/#{id}/")
+      URI.join(FB_API_URL, id.to_s)
     end
   end
 end
