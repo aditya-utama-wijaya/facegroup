@@ -1,4 +1,2 @@
-.bundle/
-credentials.yml
-fb_response.yml
-results.yml
+config/
+coverage/
