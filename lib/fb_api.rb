@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'http'
 
 module FaceGroup
@@ -15,23 +16,26 @@ module FaceGroup
         FB_TOKEN_URL,
         params: {
           client_id: client_id,
-          client_secret:client_secret,
+          client_secret: client_secret,
           grant_type: 'client_credentials'
-        })
+        }
+      )
       @access_token = JSON.load(access_token_response.to_s)['access_token']
     end
 
     def group_info(group_id)
       group_response = HTTP.get(
         fb_resource_url(group_id),
-        params: { access_token: @access_token })
+        params: { access_token: @access_token }
+      )
       JSON.load(group_response.to_s)
     end
 
     def group_feed(group_id)
       feed_response = HTTP.get(
         fb_resource_url(group_id).to_s + '/feed',
-        params: { access_token: @access_token })
+        params: { access_token: @access_token }
+      )
       JSON.load(feed_response.to_s)['data']
     end
 
@@ -39,15 +43,15 @@ module FaceGroup
       feed_response = HTTP.get(
         fb_resource_url(posting_id).to_s,
         params: { access_token: @access_token }
-        )
-      
+      )
       JSON.load(feed_response.to_s)
     end
 
     def posting_attachments(posting_id)
       attachments_response = HTTP.get(
         fb_resource_url(posting_id).to_s + '/attachments',
-        params: { access_token: @access_token })
+        params: { access_token: @access_token }
+      )
       JSON.load(attachments_response.to_s)['data'].first
     end
 

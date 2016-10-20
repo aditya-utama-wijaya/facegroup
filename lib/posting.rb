@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'fb_api'
 require_relative 'attachment'
 

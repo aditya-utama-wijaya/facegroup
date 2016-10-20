@@ -1,4 +1,4 @@
-# frozen_string_liberal: true
+# frozen_string_literal: true
 
 module FaceGroup
   # Attached URL to Posting

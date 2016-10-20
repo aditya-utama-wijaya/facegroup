@@ -22,7 +22,8 @@ describe 'FaceGroup specifications' do
 
     @fb_api = FaceGroup::FbApi.new(
       client_id: CREDENTIALS[:client_id],
-      client_secret: CREDENTIALS[:client_secret])
+      client_secret: CREDENTIALS[:client_secret]
+    )
 
     @posting_with_msg_id = FB_RESULT['posting']['id']
   end
@@ -34,7 +35,8 @@ describe 'FaceGroup specifications' do
   it 'should be able to get a new access token' do
     fb_api = FaceGroup::FbApi.new(
       client_id: CREDENTIALS[:client_id],
-      client_secret: CREDENTIALS[:client_secret])
+      client_secret: CREDENTIALS[:client_secret]
+    )
 
     fb_api.access_token.length.must_be :>, 0
   end
@@ -42,7 +44,8 @@ describe 'FaceGroup specifications' do
   it 'should be able to open a Facebook Group' do
     group = FaceGroup::Group.find(
       @fb_api,
-      id: CREDENTIALS[:group_id])
+      id: CREDENTIALS[:group_id]
+    )
 
     group.name.length.must_be :>, 0
   end
@@ -50,7 +53,8 @@ describe 'FaceGroup specifications' do
   it 'should get the latest feed from a group' do
     group = FaceGroup::Group.find(
       @fb_api,
-      id: CREDENTIALS[:group_id])
+      id: CREDENTIALS[:group_id]
+    )
 
     feed = group.feed
     feed.count.must_be :>, 1
@@ -59,7 +63,8 @@ describe 'FaceGroup specifications' do
   it 'should get basic information about postings on the feed' do
     group = FaceGroup::Group.find(
       @fb_api,
-      id: CREDENTIALS[:group_id])
+      id: CREDENTIALS[:group_id]
+    )
 
     group.feed.each do |posting|
       posting.id.wont_be_nil
