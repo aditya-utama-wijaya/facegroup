@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v2.8/oauth/access_token?client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&grant_type=client_credentials
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - graph.facebook.com
+      User-Agent:
+      - http.rb/2.0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Facebook-Api-Version:
+      - v2.8
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Fb-Trace-Id:
+      - BHdkZ0TSo6n
+      X-Fb-Rev:
+      - '2632900'
+      X-Fb-Debug:
+      - wM2lx2S8CQ818gXvT+je99A/ROxWn02o22Zs5uQDjVZOAgZI4zaCvNGJhAABG4JjEv8Ri/Tc7wNR3NUJcZV2TQ==
+      Date:
+      - Thu, 20 Oct 2016 02:09:40 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '85'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"<ACCESS_TOKEN>","token_type":"bearer"}'
+    http_version: 
+  recorded_at: Thu, 20 Oct 2016 02:09:38 GMT
+recorded_with: VCR 3.0.3

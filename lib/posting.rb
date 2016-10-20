@@ -14,6 +14,7 @@ module FaceGroup
 
     def attachment
       return @attachment if @attachment
+      
       attached_data = @fb_api.posting_attachments(@id)
       @attachment = Attachment.new(attached_data)
     end

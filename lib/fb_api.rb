@@ -23,33 +23,33 @@ module FaceGroup
       @access_token = JSON.load(access_token_response.to_s)['access_token']
     end
 
-    def group_info(group_id)
-      group_response = HTTP.get(
-        fb_resource_url(group_id),
-        params: { access_token: @access_token }
-      )
-      JSON.load(group_response.to_s)
-    end
-
     def group_feed(group_id)
       feed_response = HTTP.get(
-        fb_resource_url(group_id).to_s + '/feed',
+        fb_resource_url(group_id) + '/feed',
         params: { access_token: @access_token }
       )
       JSON.load(feed_response.to_s)['data']
     end
 
-    def posting(posting_id)
-      feed_response = HTTP.get(
-        fb_resource_url(posting_id).to_s,
+    def fb_resource(id)
+      response = HTTP.get(
+        fb_resource_url(id),
         params: { access_token: @access_token }
       )
-      JSON.load(feed_response.to_s)
+      JSON.load(response.to_s)
+    end
+
+    def group_info(group_id)
+      fb_resource(group_id)
+    end
+
+    def posting(posting_id)
+      fb_resource(posting_id)
     end
 
     def posting_attachments(posting_id)
       attachments_response = HTTP.get(
-        fb_resource_url(posting_id).to_s + '/attachments',
+        fb_resource_url(posting_id) + '/attachments',
         params: { access_token: @access_token }
       )
       JSON.load(attachments_response.to_s)['data'].first
@@ -58,7 +58,7 @@ module FaceGroup
     private
 
     def fb_resource_url(id)
-      URI.join(FB_API_URL, id.to_s)
+      URI.join(FB_API_URL, id.to_s).to_s
     end
   end
 end
