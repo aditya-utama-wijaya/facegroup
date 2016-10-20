@@ -1,9 +1,10 @@
 require_relative 'fb_api'
+require_relative 'attachment'
 
 module FaceGroup
   # Single posting on group's feed
   class Posting
-    attr_reader :id, :created_time, :updated_time, :message, :attachment
+    attr_reader :id, :created_time, :updated_time, :message
 
     def initialize(fb_api, data: nil)
       @fb_api = fb_api
@@ -13,10 +14,7 @@ module FaceGroup
     def attachment
       return @attachment if @attachment
       attached_data = @fb_api.posting_attachments(@id)
-      @attachment = {
-        description: attached_data['description'],
-        url: attached_data['url']
-      }
+      @attachment = Attachment.new(attached_data)
     end
 
     def self.find(fb_api, id:)
@@ -31,7 +29,8 @@ module FaceGroup
       @updated_time = posting_data['updated_time']
       @created_time = posting_data['created_time']
       @message = posting_data['message']
-      @attachment = posting_data['attachment']
+      attached = posting_data['attachment']
+      @attachment = Attachment.new(attached) if attached
     end
   end
 end

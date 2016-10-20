@@ -1,11 +1,7 @@
 # frozen_string_literal: true
-require 'minitest/autorun'
-require 'minitest/rg'
-require 'vcr'
-require 'webmock'
-
 require_relative 'spec_helper.rb'
 
+require 'yaml'
 FB_RESULT = YAML.load(File.read(RESULT_FILE))
 
 describe 'FaceGroup specifications' do
@@ -80,7 +76,7 @@ describe 'FaceGroup specifications' do
     retrieved.created_time.must_equal posting['created_time']
     retrieved.message.must_equal posting['message']
     retrieved.attachment.wont_be_nil
-    retrieved.attachment[:description].must_equal attachment['description']
-    retrieved.attachment[:url].must_match 'tutorialzine'
+    retrieved.attachment.description.must_equal attachment['description']
+    retrieved.attachment.url.must_match 'tutorialzine'
   end
 end
