@@ -63,7 +63,7 @@ describe 'FaceGroup specifications' do
       id: CREDENTIALS[:group_id]
     )
 
-    group.feed.each do |posting|
+    group.feed.postings.each do |posting|
       posting.id.wont_be_nil
       posting.updated_time.wont_be_nil
     end
