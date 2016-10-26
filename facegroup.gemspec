@@ -3,16 +3,16 @@ $LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require 'facegroup/version'
 
 Gem::Specification.new do |s|
-  s.name				= 'facegroup'
-  s.version			= FaceGroup::VERSION
+  s.name = 'facegroup'
+  s.version = FaceGroup::VERSION
 
-  s.summary		= 'Gets posted content from public Facebook groups'
-  s.description	= 'Extracts feed, postings, and attachments from FB groups'
-  s.authors			= ['Aditya Utama Wijaya']
-  s.email				= ['adityautamawijaya@gmail.com']
+  s.summary = 'Gets posted content from public Facebook groups'
+  s.description = 'Extracts feed, postings, and attachments from FB groups'
+  s.authors = ['Aditya Utama Wijaya']
+  s.email = ['adityautamawijaya@gmail.com']
 
-  s.files					= `git ls-files`.split("\n")
-  s.test_files		= `git ls-files -- spec/*`.split("\n")
+  s.files = `git ls-files`.split("\n")
+  s.test_files = `git ls-files -- spec/*`.split("\n")
   s.executables << 'facegroup'
 
   s.add_runtime_dependency 'http', '~> 2.0'
