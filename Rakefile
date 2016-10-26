@@ -3,17 +3,25 @@ require 'rake/testtask'
 
 task default: :spec
 
-namespace :api do
+namespace :credentials do
+  require 'yaml'
+  CREDENTIALS = YAML.load(File.read('config/credentials.yml'))
+
   desc 'generate access_token to STDOUT'
-  task :access_token do
-    require 'yaml'
+  task :get_access_token do
     require_relative 'lib/fb_api'
-    CREDENTIALS = YAML.load(File.read('config/credentials.yml'))
     ENV['FBAPI_CLIENT_ID'] = CREDENTIALS[:client_id]
     ENV['FBAPI_CLIENT_SECRET'] = CREDENTIALS[:client_secret]
 
     puts "Access Token: #{FaceGroup::FbApi.access_token}"
   end
+end
+
+desc 'Export sample credentials from file to bash'
+task :export do
+  puts 'Please run the following in bash:'
+  puts "export FB_CLIENT_ID=#{CREDENTIALS[:client_id]}"
+  puts "export FB_CLIENT_SECRET=#{CREDENTIALS[:client_secret]}"
 end
 
 desc 'run tests'
