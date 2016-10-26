@@ -6,42 +6,43 @@ describe 'FaceGroup specifications' do
     c.cassette_library_dir = CASSETTES_FOLDER
     c.hook_into :webmock
 
-    c.filter_sensitive_data('<ACCESS_TOKEN>') { CREDENTIALS[:access_token] }
-    c.filter_sensitive_data('<ACCESS_TOKEN_ESCAPED>') do
-      URI.escape(CREDENTIALS[:access_token])
+    c.filter_sensitive_data('<ACCESS_TOKEN>') do
+      URI.unescape(ENV['FB_ACCESS_TOKEN'])
     end
-    c.filter_sensitive_data('<CLIENT_ID>') { CREDENTIALS[:client_id] }
-    c.filter_sensitive_data('<CLIENT_SECRET>') { CREDENTIALS[:client_secret] }
+
+    c.filter_sensitive_data('<ACCESS_TOKEN_ESCAPED>') do
+      ENV['FB_ACCESS_TOKEN']
+    end
+
+    c.filter_sensitive_data('<CLIENT_ID>') { ENV['FB_CLIENT_ID'] }
+    c.filter_sensitive_data('<CLIENT_SECRET>') { ENV['FB_CLIENT_SECRET'] }
   end
 
   before do
     VCR.insert_cassette CASSETTE_FILE, record: :new_episodes
-
-    @fb_api = FaceGroup::FbApi.new(
-      client_id: CREDENTIALS[:client_id],
-      client_secret: CREDENTIALS[:client_secret]
-    )
-
-    @posting_with_msg_id = FB_RESULT['posting']['id']
   end
 
   after do
     VCR.eject_cassette
   end
 
-  it 'should be able to get a new access token' do
-    fb_api = FaceGroup::FbApi.new(
-      client_id: CREDENTIALS[:client_id],
-      client_secret: CREDENTIALS[:client_secret]
-    )
+  describe 'FbApi Credentials' do
+    it 'should be able to get a new access token with ENV credentials' do
+      FaceGroup::FbApi.access_token.length.must_be :>, 0
+    end
 
-    fb_api.access_token.length.must_be :>, 0
+    it 'should be able to get a new access token with file credentials' do
+      FaceGroup::FbApi.config = {
+        client_id: ENV['FB_CLIENT_ID'],
+        client_secret: ENV['FB_CLIENT_SECRET']
+      }
+      FaceGroup::FbApi.access_token.length.must_be :>, 0
+    end
   end
 
   it 'should be able to open a Facebook Group' do
     group = FaceGroup::Group.find(
-      @fb_api,
-      id: CREDENTIALS[:group_id]
+      id: ENV['FB_GROUP_ID']
     )
 
     group.name.length.must_be :>, 0
@@ -49,8 +50,7 @@ describe 'FaceGroup specifications' do
 
   it 'should get the latest feed from a group' do
     group = FaceGroup::Group.find(
-      @fb_api,
-      id: CREDENTIALS[:group_id]
+      id: ENV['FB_GROUP_ID']
     )
 
     feed = group.feed
@@ -59,11 +59,10 @@ describe 'FaceGroup specifications' do
 
   it 'should get basic information about postings on the feed' do
     group = FaceGroup::Group.find(
-      @fb_api,
-      id: CREDENTIALS[:group_id]
+      id: ENV['FB_GROUP_ID']
     )
 
-    group.feed.each do |posting|
+    group.feed.postings.each do |posting|
       posting.id.wont_be_nil
       posting.updated_time.wont_be_nil
     end
@@ -72,7 +71,7 @@ describe 'FaceGroup specifications' do
   it 'should find all parts of a full posting' do
     posting = FB_RESULT['posting']
     attachment = posting['attachment'].first
-    retrieved = FaceGroup::Posting.find(@fb_api, id: posting['id'])
+    retrieved = FaceGroup::Posting.find(id: posting['id'])
 
     retrieved.id.must_equal posting['id']
     retrieved.created_time.must_equal posting['created_time']
