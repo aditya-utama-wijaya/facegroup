@@ -12,7 +12,7 @@ namespace :credentials do
     ENV['FBAPI_CLIENT_ID'] = credentials[:client_id]
     ENV['FBAPI_CLIENT_SECRET'] = credentials[:client_secret]
 
-    puts "Access Token: #{FaceGroup::FbApi.access_token}"
+    puts "Access Token: #{FaceGroups::FbApi.access_token}"
   end
 
   desc 'Export sample credentials from file to bash'
@@ -26,7 +26,7 @@ end
 
 desc 'run tests'
 task :spec do
-  sh 'ruby spec/facegroup_spec.rb'
+  sh 'ruby spec/facegroups_spec.rb'
 end
 
 desc 'delete cassette fixtures'

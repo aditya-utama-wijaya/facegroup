@@ -2,7 +2,7 @@
 require_relative 'fb_api'
 require_relative 'feed'
 
-module FaceGroup
+module FaceGroups
   # Main class to setup a Facebook group
   class Group
     attr_reader :id, :name, :feed

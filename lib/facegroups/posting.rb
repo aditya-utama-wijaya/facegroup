@@ -2,7 +2,7 @@
 require_relative 'fb_api'
 require_relative 'attachment'
 
-module FaceGroup
+module FaceGroups
   # Single posting on group's feed
   class Posting
     attr_reader :id, :created_time, :updated_time, :message, :name, :attachment
@@ -12,7 +12,7 @@ module FaceGroup
     end
 
     def self.find(id:)
-      posting_data = FaceGroup::FbApi.posting_data(id)
+      posting_data = FaceGroups::FbApi.posting_data(id)
       new(data: posting_data)
     end
 

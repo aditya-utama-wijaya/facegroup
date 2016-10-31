@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FaceGroup
+module FaceGroups
   # Attached URL to Posting
   class Attachment
     attr_reader :title, :description, :url

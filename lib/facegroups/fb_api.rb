@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'http'
 
-module FaceGroup
+module FaceGroups
   # Service for all FB API calls
   class FbApi
     FB_URL = 'https://graph.facebook.com'
