@@ -1,15 +1,15 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w(.. lib))
-require 'facegroup'
+require 'facegroups'
 
 group_id = ARGV[0] || ENV['FB_GROUP_ID']
 unless group_id
-  puts 'USAGE: facegroup [group_id]'
+  puts 'USAGE: facegroups [group_id]'
   exit(1)
 end
 
-group = FaceGroup::Group.find(id: group_id)
+group = FaceGroups::Group.find(id: group_id)
 
 puts group.name
 puts Array.new(group.name.length) { '-' }.join

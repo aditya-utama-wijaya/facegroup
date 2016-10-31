@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    facegroup (0.1.0)
+    facegroups (0.1.0)
       http (~> 2.0)
 
 GEM
@@ -74,7 +74,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  facegroup!
+  facegroups!
   flay (~> 2.8)
   flog (~> 4.4)
   minitest (~> 5.9)
@@ -86,4 +86,4 @@ DEPENDENCIES
   webmock (~> 2.1)
 
 BUNDLED WITH
-   1.13.5
+   1.13.6

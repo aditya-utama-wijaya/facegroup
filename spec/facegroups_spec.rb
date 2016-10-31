@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require_relative 'spec_helper.rb'
 
-describe 'FaceGroup specifications' do
+describe 'FaceGroups specifications' do
   VCR.configure do |c|
     c.cassette_library_dir = CASSETTES_FOLDER
     c.hook_into :webmock
@@ -28,20 +28,20 @@ describe 'FaceGroup specifications' do
 
   describe 'FbApi Credentials' do
     it 'should be able to get a new access token with ENV credentials' do
-      FaceGroup::FbApi.access_token.length.must_be :>, 0
+      FaceGroups::FbApi.access_token.length.must_be :>, 0
     end
 
     it 'should be able to get a new access token with file credentials' do
-      FaceGroup::FbApi.config = {
+      FaceGroups::FbApi.config = {
         client_id: ENV['FB_CLIENT_ID'],
         client_secret: ENV['FB_CLIENT_SECRET']
       }
-      FaceGroup::FbApi.access_token.length.must_be :>, 0
+      FaceGroups::FbApi.access_token.length.must_be :>, 0
     end
   end
 
   it 'should be able to open a Facebook Group' do
-    group = FaceGroup::Group.find(
+    group = FaceGroups::Group.find(
       id: ENV['FB_GROUP_ID']
     )
 
@@ -49,7 +49,7 @@ describe 'FaceGroup specifications' do
   end
 
   it 'should get the latest feed from a group' do
-    group = FaceGroup::Group.find(
+    group = FaceGroups::Group.find(
       id: ENV['FB_GROUP_ID']
     )
 
@@ -58,7 +58,7 @@ describe 'FaceGroup specifications' do
   end
 
   it 'should get basic information about postings on the feed' do
-    group = FaceGroup::Group.find(
+    group = FaceGroups::Group.find(
       id: ENV['FB_GROUP_ID']
     )
 
@@ -71,7 +71,7 @@ describe 'FaceGroup specifications' do
   it 'should find all parts of a full posting' do
     posting = FB_RESULT['posting']
     attachment = posting['attachment'].first
-    retrieved = FaceGroup::Posting.find(id: posting['id'])
+    retrieved = FaceGroups::Posting.find(id: posting['id'])
 
     retrieved.id.must_equal posting['id']
     retrieved.created_time.must_equal posting['created_time']
