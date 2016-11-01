@@ -7,15 +7,15 @@ There are 5 important database tables that are created in the database file:
 
 1. `cb_api_responses_account_collages`
 
-It will call a random list of accounts (as many as the specified `sample_size`, and between the specified `start` and `finish`), and then store the `api_response`s.
-Since the account can share the collage to either PicCollage, Facebook, or Twitter, so in this table, there will be 3 records for each sample accounts taken (3 `api_response`s per account).
-The columns in the table:
+    It will call a random list of accounts (as many as the specified `sample_size`, and between the specified `start` and `finish`), and then store the `api_response`s.
+    Since the account can share the collage to either PicCollage, Facebook, or Twitter, so in this table, there will be 3 records for each sample accounts taken (3 `api_response`s per account).
+    The columns in the table:
 
-- `id`: SQLite database identifier
-- `account_id`: the ID of accounts that created the collage
-- `api_response`: the response from the API when we make this call request
-- `shared_to`: the social networks that each account can share a collage to
-- `response_status`: the status of the API response
+    - `id`: SQLite database identifier
+    - `account_id`: the ID of accounts that created the collage
+    - `api_response`: the response from the API when we make this call request
+    - `shared_to`: the social networks that each account can share a collage to
+    - `response_status`: the status of the API response
 
 2. `proc_account_collages`
 
