@@ -7,7 +7,7 @@ There are 5 important database tables that are created in the database file:
 
 1. `cb_api_responses_account_collages`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It will call a random list of accounts (as many as the specified `sample_size`, and between the specified `start` and `finish`), and then store the `api_response`s.
+It will call a random list of accounts (as many as the specified `sample_size`, and between the specified `start` and `finish`), and then store the `api_response`s.
 Since the account can share the collage to either PicCollage, Facebook, or Twitter, so in this table, there will be 3 records for each sample accounts taken (3 `api_response`s per account).
 The columns in the table:
 
@@ -16,19 +16,19 @@ The columns in the table:
 - `api_response`: the response from the API when we make this call request
 - `shared_to`: the social networks that each account can share a collage to
 - `response_status`: the status of the API response
-#
+
 2. `proc_account_collages`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It will record the collages from the accounts taken as samples. It will give us the information of how many unique collages created by each account. The columns in the table:
+It will record the collages from the accounts taken as samples. It will give us the information of how many unique collages created by each account. The columns in the table:
 
 - `id`: SQLite database identifier
 - `account_id`: the ID of accounts that created the collage
 - `collage_id`: the ID of each collage created
 - `shared_to`: the social network that the collage was shared to
-#
+
 3. `cb_api_responses_collage_structures`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It will call the list of collages that were created by the accounts in the sample, and then store the `api_response`s. The columns in the table:
+It will call the list of collages that were created by the accounts in the sample, and then store the `api_response`s. The columns in the table:
 
 - `id`: SQLite database identifier
 - `account_id`: the ID of accounts that created the collage
@@ -38,10 +38,10 @@ The columns in the table:
 - `shared_to_cb`: identifies if the collage was shared to PicCollage
 - `shared_to_fb`: identifies if the collage was shared to Facebook
 - `shared_to_tw`: identifies if the collage was shared to Twitter
-#
+
 4. `proc_collage_summaries`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It will summarize the collages made by the sample accounts to understand more about the characteristics and elements of collages, so that we could make clusters of collages based on this.
+It will summarize the collages made by the sample accounts to understand more about the characteristics and elements of collages, so that we could make clusters of collages based on this.
 The columns in the table:
 
 - `id`: SQLite database identifier
@@ -100,10 +100,10 @@ The columns in the table:
 - `collage_has_rotation`: identifies if at least one scrap used rotation
 - `collage_rotation_count`: the amount of scrap rotation in the collage
 - `collage_average_rotation`: the average of rotation in the collage
-#
+
 5. `proc_account_summaries`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It will summarize the account taken as samples to understand more their collaging behavior, and therefore we can make segmentation or clusters of accounts based on this.
+It will summarize the account taken as samples to understand more their collaging behavior, and therefore we can make segmentation or clusters of accounts based on this.
 The columns in the table:
 - `id`: SQLite database identifier
 - `account_id`: PicCollage account ID (hashed)
