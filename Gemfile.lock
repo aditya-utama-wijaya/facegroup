@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    facegroups (0.1.0)
+    facegroups (0.2.1)
       http (~> 2.0)
 
 GEM
@@ -9,10 +9,12 @@ GEM
   specs:
     addressable (2.4.0)
     ast (2.3.0)
+    codeclimate-test-reporter (0.6.0)
+      simplecov (>= 0.7.1, < 1.0.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     docile (1.1.5)
-    domain_name (0.5.20160826)
+    domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     flay (2.8.1)
@@ -74,6 +76,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  codeclimate-test-reporter (~> 0.6)
   facegroups!
   flay (~> 2.8)
   flog (~> 4.4)
