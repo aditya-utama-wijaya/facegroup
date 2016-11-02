@@ -2,17 +2,18 @@
 require_relative 'fb_api'
 require_relative 'posting'
 
-module FaceGroup
+module FaceGroups
   # Group feeds, with data and paging information
   class Feed
     attr_reader :postings
 
-    def initialize(postings_data:, paging_data:)
+    def initialize(feed_data:)
+      postings_data = feed_data['data']
       @postings = postings_data.map do |post_data|
-        FaceGroup::Posting.new(data: post_data)
+        FaceGroups::Posting.new(data: post_data)
       end
 
-      @paging = paging_data
+      @pagination = feed_data['pagination']
     end
 
     def count
