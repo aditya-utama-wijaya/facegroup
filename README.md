@@ -1,6 +1,10 @@
 # FaceGroups Gem
 
 [![Gem Version](https://badge.fury.io/rb/facegroups.svg)](https://badge.fury.io/rb/facegroups)
+<<<<<<< HEAD
+[![Build Status](https://travis-ci.org/aditya-utama-wijaya/facegroups.svg?branch=master)](https://travis-ci.org/aditya-utama-wijaya/facegroups)
+=======
+>>>>>>> master
 
 FaceGroups is a gem that specializes in getting data from public Facebook Groups.
 
@@ -17,7 +21,11 @@ Please setup your Facebook developer credentials by creating an app profile on F
 
 ## Usage
 
+<<<<<<< HEAD
+Require FaceGroup gem in your code: `require 'facegroups'`
+=======
 Require FaceGroups gem in your code: `require 'facegroups'`
+>>>>>>> master
 
 Supply your Facebook credentials to our library in one of two ways:
 - Setup environment variables: `ENV[FB_CLIENT_ID]` and `ENV[FB_CLIENT_SECRET]`
