@@ -27,11 +27,11 @@ describe 'FaceGroups specifications' do
   end
 
   describe 'FbApi Credentials' do
-    it 'should be able to get a new access token with ENV credentials' do
+    it '(HAPPY) should get new access token with ENV credentials' do
       FaceGroups::FbApi.access_token.length.must_be :>, 0
     end
 
-    it 'should be able to get a new access token with file credentials' do
+    it '(HAPPY) should get new access token with file credentials' do
       FaceGroups::FbApi.config = {
         client_id: ENV['FB_CLIENT_ID'],
         client_secret: ENV['FB_CLIENT_SECRET']
@@ -39,36 +39,43 @@ describe 'FaceGroups specifications' do
       FaceGroups::FbApi.access_token.length.must_be :>, 0
     end
   end
+end
 
-  it 'should be able to open a Facebook Group' do
-    group = FaceGroups::Group.find(
-      id: ENV['FB_GROUP_ID']
-    )
+describe 'Finding Group Information' do
+  describe 'Find a Group' do
+    it '(HAPPY) should be able to find a Facebook Group with proper ID' do
+      group = FaceGroups::Group.find(id: ENV['FB_GROUP_ID'])
 
-    group.name.length.must_be :>, 0
-  end
+      group.name.length.must_be :>, 0
+    end
 
-  it 'should get the latest feed from a group' do
-    group = FaceGroups::Group.find(
-      id: ENV['FB_GROUP_ID']
-    )
-
-    feed = group.feed
-    feed.count.must_be :>, 1
-  end
-
-  it 'should get basic information about postings on the feed' do
-    group = FaceGroups::Group.find(
-      id: ENV['FB_GROUP_ID']
-    )
-
-    group.feed.postings.each do |posting|
-      posting.id.wont_be_nil
-      posting.updated_time.wont_be_nil
+    it '(SAD) should return nil if Group ID is invalid' do
+      group = FaceGroups::Group.find(id: INVALID_RESOURCE_ID)
+      group.must_be_nil
     end
   end
 
-  it 'should find all parts of a full posting' do
+  describe 'Retrieving Group Feed' do
+    it '(HAPPY) should get the latest feed from a group with proper ID' do
+      group = FaceGroups::Group.find(id: ENV['FB_GROUP_ID'])
+
+      feed = group.feed
+      feed.count.must_be :>, 1
+    end
+
+    it '(HAPPY) should get the postings on the feed with proper ID' do
+      group = FaceGroups::Group.find(id: ENV['FB_GROUP_ID'])
+
+      group.feed.postings.each do |posting|
+        posting.id.wont_be_nil
+        posting.updated_time.wont_be_nil
+      end
+    end
+  end
+end
+
+describe 'Finding Posting Information' do
+  it ' (HAPPY) should find all parts of a full posting' do
     posting = FB_RESULT['posting']
     attachment = posting['attachment'].first
     retrieved = FaceGroups::Posting.find(id: posting['id'])
@@ -81,6 +88,13 @@ describe 'FaceGroups specifications' do
     retrieved.attachment.url.must_match 'tutorialzine'
   end
 
+  it '(SAD) should return nil if Posting ID is invalid' do
+    posting = FaceGroups::Posting.find(id: INVALID_RESOURCE_ID)
+    posting.must_be_nil
+  end
+end
+
+describe 'Command Line Executable Actions' do
   it 'should run the executable file' do
     output = FaceGroups::Runner.run!([ENV['FB_GROUP_ID']])
     output.split("\n").length.must_be :>, 5

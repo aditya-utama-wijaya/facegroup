@@ -13,7 +13,7 @@ module FaceGroups
 
     def self.find(id:)
       posting_data = FaceGroups::FbApi.posting_data(id)
-      new(data: posting_data)
+      posting_data.keys.include?('error') ? nil : new(data: posting_data)
     end
 
     private
