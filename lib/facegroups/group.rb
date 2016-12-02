@@ -17,5 +17,9 @@ module FaceGroups
       group_data = FbApi.group_data(id)
       group_data.include?('error') ? nil : new(group_data: group_data)
     end
+
+    def latest_postings
+      FbApi.newest_group_postings(id)
+    end
   end
 end

@@ -56,6 +56,15 @@ describe 'Finding Group Information' do
       end
     end
   end
+
+  describe 'Checking Latest Postings on Group Feed' do
+    it '(HAPPY) should get only the latest postings time from a group feed' do
+      group = FaceGroups::Group.find(id: ENV['FB_GROUP_ID'])
+      latest_postings = group.latest_postings
+      latest_postings.count.must_be :>=, 10
+      latest_postings.count.must_be :<=, 25
+    end
+  end
 end
 
 describe 'Finding Posting Information' do
@@ -70,6 +79,7 @@ describe 'Finding Posting Information' do
     retrieved.attachment.wont_be_nil
     retrieved.attachment.description.must_equal attachment['description']
     retrieved.attachment.url.must_match 'tutorialzine'
+    retrieved.attachment.media_url.must_match 'https://'
   end
 
   it '(SAD) should return nil if Posting ID is invalid' do

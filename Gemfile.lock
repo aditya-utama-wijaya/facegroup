@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    facegroups (0.3.0)
+    facegroups (0.6.0)
       http (~> 2.0)
 
 GEM
