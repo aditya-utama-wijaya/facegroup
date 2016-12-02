@@ -5,10 +5,11 @@ task default: :spec
 
 namespace :credentials do
   require 'yaml'
+
   desc 'generate access_token to STDOUT'
   task :get_access_token do
     credentials = YAML.load(File.read('config/credentials.yml'))
-    require_relative 'lib/fb_api'
+    require_relative 'lib/acegroups/fb_api'
     ENV['FBAPI_CLIENT_ID'] = credentials[:client_id]
     ENV['FBAPI_CLIENT_SECRET'] = credentials[:client_secret]
 

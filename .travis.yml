@@ -9,3 +9,4 @@ script: bundle exec rake spec
 addons:
   code_climate:
     repo_token: 0cb8c63610f6ab2306008759596bcdf48c2dcf62b99f05074eca73477922af15
+    
