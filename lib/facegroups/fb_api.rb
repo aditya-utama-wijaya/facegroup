@@ -11,12 +11,10 @@ module FaceGroups
     TOKEN_KEY = 'fbapi_access_token'
 
     GRAPH_QUERY = {
-      group:
-        'id,name,feed{name,message,updated_time,created_time,'\
-        'attachments{title,description,url,media}}',
-      posting:
-        'name,message,updated_time,created_time,'\
-        'attachments{title,description,url,media}'
+      group:   'id,name,feed{name,message,updated_time,created_time,'\
+               'attachments{title,description,url,media}}',
+      posting: 'name,message,updated_time,created_time,'\
+               'attachments{title,description,url,media}'
     }.freeze
 
     def self.access_token
@@ -62,6 +60,14 @@ module FaceGroups
         }
       )
       JSON.load(response.to_s)
+    end
+
+    def self.newest_group_postings(group_id)
+      feed_response = HTTP.get(
+        fb_resource_url(group_id) + '/feed',
+        params: { access_token: access_token }
+      )
+      JSON.parse(feed_response)['data']
     end
 
     private_class_method

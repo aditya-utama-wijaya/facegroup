@@ -31,13 +31,13 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       X-Fb-Trace-Id:
-      - D1HpQxu168B
+      - Bm/5xNVX6AD
       X-Fb-Rev:
       - '2714680'
       X-Fb-Debug:
-      - ByyQ1oL8PWaUpUEcm5nVrZVqI0R5teotsfKyahK17eLtj4jCMp3ehze5aX5VouywplLMy53vilJT3K4wO1YQ/Q==
+      - KzjD6HZIj/DQKG2dedE3r8CwIB51QIu+wQSy+r/rHHxEoP0VbUFiFTLM1hDKHM7okcIpfeVQDrLpUB1U66WeZQ==
       Date:
-      - Fri, 02 Dec 2016 05:54:34 GMT
+      - Fri, 02 Dec 2016 06:17:44 GMT
       Connection:
       - close
       Content-Length:
@@ -46,5 +46,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"access_token":"<ACCESS_TOKEN>","token_type":"bearer"}'
     http_version: 
-  recorded_at: Fri, 02 Dec 2016 05:54:33 GMT
+  recorded_at: Fri, 02 Dec 2016 06:17:42 GMT
 recorded_with: VCR 3.0.3

@@ -56,6 +56,15 @@ describe 'Finding Group Information' do
       end
     end
   end
+
+  describe 'Checking Latest Post Time' do
+    it '(HAPPY) should get the latest posting time from a group feed' do
+      group = FaceGroups::Group.find(id: ENV['FB_GROUP_ID'])
+      latest_time = group.latest_posting_time
+      latest_time.must_be_instance_of Time
+      latest_time.must_be :<, Time.now
+    end
+  end
 end
 
 describe 'Finding Posting Information' do
