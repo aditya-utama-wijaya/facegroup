@@ -27,7 +27,7 @@ module FaceGroups
 
     def self.posting_info(post, index)
       [
-        "#{index + 1}",
+        "#{index + 1}: ",
         message_output(post.message),
         'Attached: ' + attachment_output(post.attachment),
         "\n\n"
